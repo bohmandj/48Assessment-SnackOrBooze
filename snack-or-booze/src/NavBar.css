@@ -37,9 +37,9 @@ nav a:not(.navbar-brand):hover {
   font-weight: bold;
 }
 
-nav .navbar-brand a,
-nav .navbar-brand:hover,
-nav .navbar-brand:focus,
-nav .navbar-brand:active {
+nav a.navbar-brand,
+nav a.navbar-brand:hover,
+nav a.navbar-brand:focus,
+nav a.navbar-brand:active {
   color: #f0f2f5;
 }
