@@ -12,6 +12,11 @@
     color: white;
 }
 
+.list-group a h4,
+.list-group a li {
+    color: white;
+}
+
 .list-group a:not(:last-of-type) li {
     border-bottom: none !important;
 }
