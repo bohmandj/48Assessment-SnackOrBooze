@@ -11,7 +11,7 @@ function FoodItem({ allFood }) {
   if (!food) return <Redirect to="/404" />
 
   const item = food.items.find(i => i.id === itemId);
-  if (!item) return <Redirect to="/404" />
+  if (!item) return <Redirect to={`/${food.menu}`} />
 
   return (
     <section>
