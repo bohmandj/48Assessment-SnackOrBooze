@@ -4,28 +4,27 @@ import "./App.css";
 import Home from "./Home";
 import SnackOrBoozeApi from "./Api";
 import NavBar from "./NavBar";
-import { Route, Switch } from "react-router-dom";
-import Menu from "./FoodMenu";
-import Snack from "./FoodItem";
+import { Route, Switch, Redirect } from "react-router-dom";
+import FoodMenu from "./FoodMenu";
+import FoodItem from "./FoodItem";
+import NotFound from "./NotFound";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [snacks, setSnacks] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [allFood, setAllFood] = useState([]);
 
   useEffect(() => {
-    async function getSnacks() {
+    async function getFood() {
       let snacks = await SnackOrBoozeApi.getSnacks();
-      setSnacks(snacks);
-      setIsLoading(false);
-    }
-    getSnacks();
-    async function getDrinks() {
       let drinks = await SnackOrBoozeApi.getDrinks();
-      setDrinks(drinks);
+      let food = [
+        { menu: "snacks", title: "Snacks", items: snacks },
+        { menu: "drinks", title: "Drinks", items: drinks }
+      ];
+      setAllFood(food);
       setIsLoading(false);
     }
-    getDrinks();
+    getFood();
   }, []);
 
   if (isLoading) {
@@ -38,17 +37,20 @@ function App() {
         <NavBar />
         <main>
           <Switch>
+            <Route exact path="/404">
+              <NotFound />
+            </Route>
             <Route exact path="/">
-              <Home snacks={snacks} drinks={drinks} />
+              <Home allFood={allFood} />
             </Route>
-            <Route exact path="/snacks">
-              <Menu snacks={snacks} title="Snacks" />
+            <Route path="/:foodMenu/:itemId">
+              <FoodItem allFood={allFood} />
             </Route>
-            <Route path="/snacks/:id">
-              <Snack items={snacks} cantFind="/snacks" />
+            <Route path="/:foodMenu">
+              <FoodMenu allFood={allFood} />
             </Route>
-            <Route>
-              <p>Hmmm. I can't seem to find what you want.</p>
+            <Route path="*">
+              <Redirect to="/404" />
             </Route>
           </Switch>
         </main>
