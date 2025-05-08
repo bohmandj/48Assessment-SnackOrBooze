@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, ListGroup, ListGroupItem } from "reactstrap";
 
-function Home({ snacks, drinks }) {
+function Home({ allFood }) {
+  // Home page of the site - displays all menu titles w/ # of items
   return (
     <section className="col-md-8">
       <Card>
@@ -13,12 +14,11 @@ function Home({ snacks, drinks }) {
             </h3>
           </CardTitle>
           <ListGroup>
-            <Link to={`/snacks`}>
-              <ListGroupItem><h4>{snacks.length} Snacks</h4></ListGroupItem>
-            </Link>
-            <Link to={`/drinks`}>
-              <ListGroupItem><h4>{drinks.length} Drinks</h4></ListGroupItem>
-            </Link>
+            {allFood.map((food) => (
+              <Link to={`/${food.menu}`} key={`home-${food.menu}`}>
+                <ListGroupItem><h4>{food.items.length} {food.title}</h4></ListGroupItem>
+              </Link>
+            ))}
           </ListGroup>
         </CardBody>
       </Card>
