@@ -1,26 +1,31 @@
 import React from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
-function FoodItem({ items, cantFind }) {
-  const { id } = useParams();
+function FoodItem({ allFood }) {
+  // Item page - displays all info of individual item on the menu
+  const { foodMenu, itemId } = useParams();
 
-  let snack = items.find(snack => snack.id === id);
-  if (!snack) return <Redirect to={cantFind} />;
+  // Ensure menu and item in url exist or redirect to 404
+  const food = allFood.find(f => f.menu === foodMenu);
+  if (!food) return <Redirect to="/404" />
+
+  const item = food.items.find(i => i.id === itemId);
+  if (!item) return <Redirect to="/404" />
 
   return (
     <section>
       <Card>
         <CardBody>
           <CardTitle className="font-weight-bold text-center">
-            {snack.name}
+            {item.name}
           </CardTitle>
-          <CardText className="font-italic">{snack.description}</CardText>
+          <CardText className="font-italic">{item.description}</CardText>
           <p>
-            <b>Recipe:</b> {snack.recipe}
+            <b>Recipe:</b> {item.recipe}
           </p>
           <p>
-            <b>Serve:</b> {snack.serve}
+            <b>Serve:</b> {item.serve}
           </p>
         </CardBody>
       </Card>
