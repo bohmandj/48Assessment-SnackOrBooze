@@ -7,7 +7,8 @@ import {
   CardTitle,
   CardText,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
+  Button
 } from "reactstrap";
 
 function FoodMenu({ allFood }) {
@@ -38,6 +39,9 @@ function FoodMenu({ allFood }) {
               </Link>
             ))}
           </ListGroup>
+          <Link to={`/${foodMenu}/new-food-form`} id="btn-add-new">
+            <Button>Add New Item to {food.title} Menu</Button>
+          </Link>
         </CardBody>
       </Card>
     </section>
