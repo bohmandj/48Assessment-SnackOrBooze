@@ -1,0 +1,8 @@
+.form-row {
+    margin: 1rem 0;
+}
+
+.card .card-body form button {
+    display: block;
+    margin: 1rem auto;
+}
