@@ -2,8 +2,8 @@ import React from "react";
 import { createRoot } from 'react-dom/client';
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import App from "./App.js";
+import * as serviceWorker from "./serviceWorker.js";
 
 const root = createRoot(document.getElementById('root'));
 root.render(

@@ -2,11 +2,17 @@
   "name": "snack-or-booze",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!axios)/"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
-    "axios": "^1.7.2",
+    "axios": "1.5.1",
     "bootstrap": "^5.3.3",
     "concurrently": "^8.0.0",
     "json-server": "0.17.3",
@@ -39,5 +45,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "babel-jest": "^29.7.0",
+    "cross-env": "^7.0.3"
   }
 }

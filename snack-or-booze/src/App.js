@@ -4,14 +4,14 @@ import "./App.css";
 import "./FoodMenu.css";
 import "./NavBar.css";
 import "./NewFoodForm.css";
-import Home from "./Home";
-import SnackOrBoozeApi from "./Api";
-import NavBar from "./NavBar";
+import Home from "./Home.js";
+import SnackOrBoozeApi from "./Api.js";
+import NavBar from "./NavBar.js";
 import { Route, Switch, Redirect } from "react-router-dom";
-import FoodMenu from "./FoodMenu";
-import FoodItem from "./FoodItem";
-import NewFoodForm from "./NewFoodForm";
-import NotFound from "./NotFound";
+import FoodMenu from "./FoodMenu.js";
+import FoodItem from "./FoodItem.js";
+import NewFoodForm from "./NewFoodForm.js";
+import NotFound from "./NotFound.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
