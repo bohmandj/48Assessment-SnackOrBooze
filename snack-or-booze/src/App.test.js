@@ -71,4 +71,23 @@ describe('App', () => {
             expect(asFragment()).toMatchSnapshot();
         });
     });
+
+    it("loads and displays food quantities correctly", async () => {
+        // mocking API responses
+        SnackOrBoozeApi.getSnacks.mockResolvedValue(mockSnacksData);
+        SnackOrBoozeApi.getDrinks.mockResolvedValue(mockDrinksData);
+
+        // Render the component
+        render(<App />);
+
+        // Initially, loading text should be in the document
+        expect(screen.getByText(/loading/i)).toBeInTheDocument();
+
+        // Wait for component to finish loading
+        await waitFor(() => expect(screen.getByText(/2 Snacks/i)).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByText(/3 Drinks/i)).toBeInTheDocument());
+
+        // After loading is done, loading text should no longer be in the document
+        expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
+    })
 })
