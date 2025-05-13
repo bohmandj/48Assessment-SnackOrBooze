@@ -57,4 +57,18 @@ describe('App', () => {
             render(<App />);
         });
     });
+
+    it("matches snapshot", async () => {
+        // mocking API responses
+        SnackOrBoozeApi.getSnacks.mockResolvedValue(mockSnacksData);
+        SnackOrBoozeApi.getDrinks.mockResolvedValue(mockDrinksData);
+
+        await act(async () => {
+            render(<App />);
+        });
+        const { asFragment } = render(<App />);
+        await waitFor(() => {
+            expect(asFragment()).toMatchSnapshot();
+        });
+    });
 })
