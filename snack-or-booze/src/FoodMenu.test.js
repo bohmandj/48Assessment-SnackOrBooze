@@ -7,12 +7,7 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import * as reactRouterDom from "react-router-dom";
 import FoodMenu from './FoodMenu';
-import { mockSnacksData, mockDrinksData } from './testingMockData';
-
-let food = [
-    { menu: "snacks", title: "Snacks", items: mockSnacksData },
-    { menu: "drinks", title: "Drinks", items: mockDrinksData }
-];
+import { mockFood } from './testingMockData';
 
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
@@ -25,7 +20,7 @@ describe('FoodMenu', () => {
 
         render(
             <BrowserRouter>
-                <FoodMenu allFood={food} />
+                <FoodMenu allFood={mockFood} />
             </BrowserRouter>
         );
     });
@@ -35,7 +30,7 @@ describe('FoodMenu', () => {
 
         render(
             <BrowserRouter>
-                <FoodMenu allFood={food} />
+                <FoodMenu allFood={mockFood} />
             </BrowserRouter>
         );
         await waitFor(() => expect(screen.getByText(/Some quick example text/i)).toBeInTheDocument());

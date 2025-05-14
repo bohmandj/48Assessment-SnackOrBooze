@@ -35,4 +35,9 @@ const mockDrinksData = [{
     "serve": "Serve in a tall glass over ice, garnished with a lime wedge."
 }];
 
-export { mockSnacksData, mockDrinksData };
+let mockFood = [
+    { menu: "snacks", title: "Snacks", items: mockSnacksData },
+    { menu: "drinks", title: "Drinks", items: mockDrinksData }
+];
+
+export { mockSnacksData, mockDrinksData, mockFood };
