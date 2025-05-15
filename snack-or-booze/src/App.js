@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import "./FoodMenu.css";
 import "./NavBar.css";
@@ -44,34 +43,32 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <main>
-          <Switch>
-            <Route exact path="/404">
-              <NotFound />
-            </Route>
-            <Route exact path="/">
-              <Home allFood={allFood} />
-            </Route>
-            <Route exact path="/new-food-form">
-              <NewFoodForm allFood={allFood} postNewFood={postNewFood} />
-            </Route>
-            <Route path="/:foodMenu/new-food-form">
-              <NewFoodForm allFood={allFood} postNewFood={postNewFood} />
-            </Route>
-            <Route path="/:foodMenu/:itemId">
-              <FoodItem allFood={allFood} />
-            </Route>
-            <Route path="/:foodMenu">
-              <FoodMenu allFood={allFood} />
-            </Route>
-            <Route path="*">
-              <Redirect to="/404" />
-            </Route>
-          </Switch>
-        </main>
-      </BrowserRouter>
+      <NavBar />
+      <main>
+        <Switch>
+          <Route exact path="/404">
+            <NotFound />
+          </Route>
+          <Route exact path="/">
+            <Home allFood={allFood} />
+          </Route>
+          <Route exact path="/new-food-form">
+            <NewFoodForm allFood={allFood} postNewFood={postNewFood} />
+          </Route>
+          <Route path="/:foodMenu/new-food-form">
+            <NewFoodForm allFood={allFood} postNewFood={postNewFood} />
+          </Route>
+          <Route path="/:foodMenu/:itemId">
+            <FoodItem allFood={allFood} />
+          </Route>
+          <Route path="/:foodMenu">
+            <FoodMenu allFood={allFood} />
+          </Route>
+          <Route path="*">
+            <Redirect to="/404" />
+          </Route>
+        </Switch>
+      </main>
     </div>
   );
 }
