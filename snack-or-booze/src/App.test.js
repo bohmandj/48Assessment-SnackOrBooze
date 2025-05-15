@@ -12,11 +12,14 @@ import { mockSnacksData, mockDrinksData } from './testingMockData';
 
 jest.mock('./Api.js');
 
+beforeEach(() => {
+    // mocking API responses
+    SnackOrBoozeApi.getSnacks.mockResolvedValue(mockSnacksData);
+    SnackOrBoozeApi.getDrinks.mockResolvedValue(mockDrinksData);
+})
+
 describe('App', () => {
     it("renders without crashing", async () => {
-        // mocking API responses
-        SnackOrBoozeApi.getSnacks.mockResolvedValue(mockSnacksData);
-        SnackOrBoozeApi.getDrinks.mockResolvedValue(mockDrinksData);
 
         await act(async () => {
             render(<App />);
@@ -24,9 +27,6 @@ describe('App', () => {
     });
 
     it("matches snapshot", async () => {
-        SnackOrBoozeApi.getSnacks.mockResolvedValue(mockSnacksData);
-        SnackOrBoozeApi.getDrinks.mockResolvedValue(mockDrinksData);
-
         await act(async () => {
             render(<App />);
         });
@@ -37,9 +37,6 @@ describe('App', () => {
     });
 
     it("loads homepage and displays food quantities correctly", async () => {
-        SnackOrBoozeApi.getSnacks.mockResolvedValue(mockSnacksData);
-        SnackOrBoozeApi.getDrinks.mockResolvedValue(mockDrinksData);
-
         render(<App />);
 
         // Initially, loading text should be in the document
