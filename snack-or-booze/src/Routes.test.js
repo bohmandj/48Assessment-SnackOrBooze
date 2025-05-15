@@ -84,6 +84,18 @@ describe('Routes', () => {
         expect(screen.getByText(/Nachos/i)).toBeInTheDocument();
     });
 
+    it("shows Nachos item page on /snacks/nachos route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/snacks/nachos"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(screen.getByText(/Nachos/i)).toBeInTheDocument();
+        expect(screen.getByText(/An American classic!/i)).toBeInTheDocument();
+    });
+
     it("shows Drinks Menu page on /drinks route", async () => {
         await act(async () => {
             render(
@@ -94,6 +106,18 @@ describe('Routes', () => {
         });
         expect(findStr('Drinks Menu')).toBeInTheDocument();
         expect(screen.getByText(/Martini/i)).toBeInTheDocument();
+    });
+
+    it("shows Martini item page on /drinks/martini route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/drinks/martini"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(screen.getByText(/Martini/i)).toBeInTheDocument();
+        expect(screen.getByText(/An ice-cold, refreshing classic./i)).toBeInTheDocument();
     });
 
     it("shows New Food Form page on /new-food-form route", async () => {
