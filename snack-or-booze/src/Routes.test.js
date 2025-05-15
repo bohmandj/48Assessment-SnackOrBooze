@@ -96,5 +96,41 @@ describe('Routes', () => {
         expect(screen.getByText(/Martini/i)).toBeInTheDocument();
     });
 
+    it("shows New Food Form page on /new-food-form route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/new-food-form"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(screen.getByText(/Add a New Food/i)).toBeInTheDocument();
+        expect(screen.queryByText(/Adding to Snacks Menu/i)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Adding to Drinks Menu/i)).not.toBeInTheDocument();
+    });
+
+    it("shows snacks-specific New Food Form page on /snacks/new-food-form route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/snacks/new-food-form"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(screen.getByText(/Add a New Food/i)).toBeInTheDocument();
+        expect(screen.getByText(/Adding to Snacks Menu/i)).toBeInTheDocument();
+    });
+
+    it("shows drinks-specific New Food Form page on /drinks/new-food-form route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/drinks/new-food-form"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(screen.getByText(/Add a New Food/i)).toBeInTheDocument();
+        expect(screen.getByText(/Adding to Drinks Menu/i)).toBeInTheDocument();
+    });
 
 })
