@@ -6,7 +6,7 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { act } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import * as reactRouterDom from "react-router-dom";
 import { createMemoryHistory } from "history";
 import App from './App';
@@ -18,12 +18,18 @@ jest.mock("react-router-dom", () => {
     const original = jest.requireActual("react-router-dom");
     return {
         ...original,
-        useParams: jest.fn(),
         useHistory: () => ({
             push: jest.fn()
         }),
     };
 });
+
+const findStr = (str) => {
+    return screen.getByText((content, node) => {
+        const hasText = (node) => node.textContent === str;
+        return hasText(node) || hasText(node.parentNode);
+    });
+}
 
 beforeEach(() => {
     // mocking API responses
@@ -36,36 +42,59 @@ describe('Routes', () => {
 
         await act(async () => {
             render(
-                <BrowserRouter>
+                <MemoryRouter>
                     <App />
-                </BrowserRouter>
+                </MemoryRouter>
             )
         });
         expect(screen.getByText(/Welcome to Silicon Valley's premier dive cafe!/i)).toBeInTheDocument();
     });
 
     it("renders Not Found page on '/404' route", async () => {
-        window.history.pushState({}, "", "/404");
         await act(async () => {
             render(
-                <BrowserRouter>
+                <MemoryRouter initialEntries={["/404"]} >
                     <App />
-                </BrowserRouter>
+                </MemoryRouter>
             )
         });
         expect(screen.getByText(/404 - Page Not Found/i)).toBeInTheDocument();
     });
 
     it("shows Not Found page on invalid route", async () => {
-        window.history.pushState({}, "", "/invalid");
-        reactRouterDom.useParams.mockReturnValue({ foodMenu: 'invalid' });
         await act(async () => {
             render(
-                <BrowserRouter>
+                <MemoryRouter initialEntries={["/invalid"]} >
                     <App />
-                </BrowserRouter>
+                </MemoryRouter>
             )
         });
         expect(screen.getByText(/404 - Page Not Found/i)).toBeInTheDocument();
     });
+
+    it("shows Snacks Menu page on /snacks route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/snacks"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(findStr('Snacks Menu')).toBeInTheDocument();
+        expect(screen.getByText(/Nachos/i)).toBeInTheDocument();
+    });
+
+    it("shows Drinks Menu page on /drinks route", async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter initialEntries={["/drinks"]} >
+                    <App />
+                </MemoryRouter>
+            )
+        });
+        expect(findStr('Drinks Menu')).toBeInTheDocument();
+        expect(screen.getByText(/Martini/i)).toBeInTheDocument();
+    });
+
+
 })
