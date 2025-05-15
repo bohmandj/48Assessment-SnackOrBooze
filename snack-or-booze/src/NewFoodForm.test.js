@@ -1,4 +1,3 @@
-import React from "react";
 import {
     render,
     screen,
@@ -10,8 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 import * as reactRouterDom from "react-router-dom";
 import NewFoodForm from "./NewFoodForm";
 import { mockFood } from './testingMockData';
-import { MemoryRouter, Route } from "react-router-dom";
-import { createMemoryHistory } from "history";
 
 jest.mock("react-router-dom", () => {
     const original = jest.requireActual("react-router-dom");
@@ -23,17 +20,6 @@ jest.mock("react-router-dom", () => {
         }),
     };
 });
-
-function renderForm({ menuParam = "", allFood = mockFood, postNewFood = jest.fn() } = {}) {
-    const { useParams } = require("react-router-dom");
-    useParams.mockReturnValue({ foodMenu: menuParam });
-
-    return render(
-        <MemoryRouter initialEntries={[`/${menuParam || ""}/new`]}>
-            <NewFoodForm allFood={food} />
-        </MemoryRouter>
-    );
-}
 
 describe('NewFoodForm', () => {
     it("renders without crashing with no foodMenu param", async () => {

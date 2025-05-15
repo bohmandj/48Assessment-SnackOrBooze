@@ -5,6 +5,7 @@ import {
     fireEvent
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { BrowserRouter } from "react-router-dom";
 import { act } from 'react';
 import App from './App';
 import SnackOrBoozeApi from './Api';
@@ -22,22 +23,38 @@ describe('App', () => {
     it("renders without crashing", async () => {
 
         await act(async () => {
-            render(<App />);
+            render(
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            );
         });
     });
 
     it("matches snapshot", async () => {
         await act(async () => {
-            render(<App />);
+            render(
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            );
         });
-        const { asFragment } = render(<App />);
+        const { asFragment } = render(
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        );
         await waitFor(() => {
             expect(asFragment()).toMatchSnapshot();
         });
     });
 
     it("loads homepage and displays food quantities correctly", async () => {
-        render(<App />);
+        render(
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        );
 
         // Initially, loading text should be in the document
         expect(screen.getByText(/loading/i)).toBeInTheDocument();
